@@ -22,7 +22,7 @@ jobs:
         if: steps.check.outputs.TAG != 'NULL'
         run: |
           sudo apt update
-          sudo apt install -y git build-essential wget golang-go
+          sudo apt install -y build-essential make golang-go
 
           git clone --branch "${{ steps.check.outputs.TAG }}" https://github.com/cloudflare/cloudflared.git
           cd cloudflared/
