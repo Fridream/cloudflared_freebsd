@@ -1,0 +1,44 @@
+name: Build and Release cloudflared for FreeBSD
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 19 * * *'
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check update
+        id: check
+        run: echo "TAG=$(./check_update.sh)" >> $GITHUB_OUTPUT
+
+      - name: Update If needs
+        if: steps.check.output.TAG != 'NULL'
+        run: |
+          apt update
+          apt install -y git build-essential wget golang-go
+          wget -O "freebsd.patch" https://raw.githubusercontent.com/robvanoostenrijk/cloudflared-freebsd/refs/heads/master/freebsd.patch
+
+          git clone --branch "${{ steps.check.output.TAG }}" https://github.com/cloudflare/cloudflared.git
+          cd cloudflared/
+          patch -p1 < /freebsd.patch
+
+          # Disable CGO
+          export CGO_ENABLED=0
+          export TARGET_OS=freebsd
+          export TARGET_ARCH=amd64
+
+          ./.teamcity/install-cloudflare-go.sh
+          export PATH=\"/tmp/go/bin:\$PATH\"
+          make cloudflared
+
+      - name: Create Release
+        if: steps.check.output.TAG != 'NULL'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.check.output.TAG }}
+          files: ./cloudflared
