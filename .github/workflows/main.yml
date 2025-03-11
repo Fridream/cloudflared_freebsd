@@ -22,7 +22,7 @@ jobs:
         if: steps.check.outputs.TAG != 'NULL'
         run: |
           sudo apt update
-          sudo apt install -y build-essential make golang-go
+          sudo apt install -y build-essential golang-go
 
           git clone --branch "${{ steps.check.outputs.TAG }}" https://github.com/cloudflare/cloudflared.git
           cd cloudflared/
@@ -35,7 +35,7 @@ jobs:
           export TARGET_ARCH=amd64
 
           ./.teamcity/install-cloudflare-go.sh
-          export PATH=\"/tmp/go/bin:\$PATH\"
+          export PATH="/tmp/go/bin:$PATH"
           make cloudflared
 
       - name: Create Release
