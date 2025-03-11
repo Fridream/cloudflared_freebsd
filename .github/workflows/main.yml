@@ -21,8 +21,8 @@ jobs:
       - name: Update If needs
         if: steps.check.output.TAG != 'NULL'
         run: |
-          apt update
-          apt install -y git build-essential wget golang-go
+          sudo apt update
+          sudo apt install -y git build-essential wget golang-go
           wget -O "freebsd.patch" https://raw.githubusercontent.com/robvanoostenrijk/cloudflared-freebsd/refs/heads/master/freebsd.patch
 
           git clone --branch "${{ steps.check.output.TAG }}" https://github.com/cloudflare/cloudflared.git
