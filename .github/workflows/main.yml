@@ -37,10 +37,11 @@ jobs:
           ./.teamcity/install-cloudflare-go.sh
           export PATH="/tmp/go/bin:$PATH"
           make cloudflared
+          sudo mv ./cloudflared /cloudflared
 
       - name: Create Release
         if: steps.check.outputs.TAG != 'NULL'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.check.outputs.TAG }}
-          files: ./cloudflared
+          files: /cloudflared
