@@ -27,7 +27,7 @@ jobs:
           git clone --branch "${{ steps.check.outputs.TAG }}" https://github.com/cloudflare/cloudflared.git
           cd cloudflared/
           wget -O "freebsd.patch" https://raw.githubusercontent.com/robvanoostenrijk/cloudflared-freebsd/refs/heads/master/freebsd.patch
-          patch -p1 < /freebsd.patch
+          patch -p1 < ./freebsd.patch
 
           # Disable CGO
           export CGO_ENABLED=0
