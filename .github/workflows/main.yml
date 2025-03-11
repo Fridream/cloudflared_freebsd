@@ -14,7 +14,9 @@ jobs:
 
       - name: Check update
         id: check
-        run: echo "TAG=$(./check_update.sh)" >> $GITHUB_OUTPUT
+        run: |
+          chmod +x ./check_update.sh
+          echo "TAG=$(./check_update.sh)" >> $GITHUB_OUTPUT
 
       - name: Update If needs
         if: steps.check.output.TAG != 'NULL'
