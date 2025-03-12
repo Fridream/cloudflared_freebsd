@@ -34,8 +34,8 @@ jobs:
           export TARGET_OS=freebsd
           export TARGET_ARCH=amd64
 
-          ./.teamcity/install-cloudflare-go.sh
-          export PATH="/tmp/go/bin:$PATH"
+          # ./.teamcity/install-cloudflare-go.sh
+          # export PATH="/tmp/go/bin:$PATH"
           make cloudflared
           sudo mv ./cloudflared /cloudflared
 
