@@ -47,8 +47,8 @@ jobs:
             sudo pkg update
             sudo pkg install -y gcc gmake go git wget
 
-            # Build environment alreay sync
-            # And NO build params need to be set
+            # build environment has been synchronized
+            # no build parameters need to be set
             cd cloudflared/
             gmake cloudflared
 
