@@ -3,13 +3,14 @@ docker run -it --rm -v xxx:/output -e HTTP_PROXY="http://xxx" -e HTTPS_PROXY="ht
 
 # 构建环境初始化
 apt install git build_essential wget golang-go
-# 引用大佬的补丁，让Go编译器支持freebsd目标系统编译
-wget -O "freebsd.patch" https://raw.githubusercontent.com/robvanoostenrijk/cloudflared-freebsd/refs/heads/master/freebsd.patch
+# 下载补丁，修改影响编译的build tag
+wget -O "freebsd.patch" https://raw.githubusercontent.com/Fridream/cloudflared_freebsd/refs/heads/main/freebsd.patch
 
 # 克隆官方库，应用补丁
 git clone --branch "$TAG" https://github.com/cloudflare/cloudflared.git
 cd cloudflared/
 patch -p1 < /freebsd.patch
+mv diagnostic/system_collector_linux.go diagnostic/system_collector_unix.go
 
 # 禁用CGO，设置目标系统
 export CGO_ENABLED=0
