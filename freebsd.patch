@@ -1,0 +1,20 @@
+diff --git a/diagnostic/network/collector_unix.go b/diagnostic/network/collector_unix.go
+index 2db2d262..2d23791a 100644
+--- a/diagnostic/network/collector_unix.go
++++ b/diagnostic/network/collector_unix.go
+@@ -1,4 +1,4 @@
+-//go:build darwin || linux
++//go:build darwin || unix
+ 
+ package diagnostic
+ 
+diff --git a/diagnostic/system_collector_linux.go b/diagnostic/system_collector_linux.go
+index 49c0e6c2..4b03ddcc 100644
+--- a/diagnostic/system_collector_linux.go
++++ b/diagnostic/system_collector_linux.go
+@@ -1,4 +1,4 @@
+-//go:build linux
++//go:build unix
+ 
+ package diagnostic
+ 
