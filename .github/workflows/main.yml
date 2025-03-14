@@ -26,8 +26,8 @@ jobs:
 
           git clone --branch "${{ steps.check.outputs.TAG }}" https://github.com/cloudflare/cloudflared.git
           cd cloudflared/
-          wget -O "freebsd.patch" https://raw.githubusercontent.com/robvanoostenrijk/cloudflared-freebsd/refs/heads/master/freebsd.patch
-          patch -p1 < ./freebsd.patch
+          patch -p1 < ../freebsd.patch
+          mv diagnostic/system_collector_linux.go diagnostic/system_collector_unix.go
 
           # cross-compile disabled CGO
           export TARGET_OS=freebsd
