@@ -45,7 +45,7 @@ jobs:
           version: '14.1'
           run: |
             sudo pkg update
-            sudo pkg install -y gcc gmake go git wget
+            sudo env IGNORE_OSVERSION=yes pkg install -y gmake go git wget
 
             # build environment has been synchronized
             # no build parameters need to be set
