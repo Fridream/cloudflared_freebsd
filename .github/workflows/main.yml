@@ -22,7 +22,7 @@ jobs:
         if: steps.check.outputs.TAG != 'NULL'
         run: |
           sudo apt-get update
-          sudo apt-get install -y golang-go make wget git
+          sudo apt-get install -y make wget git
 
           git clone --branch "${{ steps.check.outputs.TAG }}" https://github.com/cloudflare/cloudflared.git
           cd cloudflared/
@@ -33,6 +33,10 @@ jobs:
           export TARGET_OS=freebsd
           export TARGET_ARCH=amd64
           export GOTOOLCHAIN=local
+
+          wget https://go.dev/dl/go1.24.4.linux-amd64.tar.gz
+          sudo tar -C /usr/local -xzf go1.24.4.linux-amd64.tar.gz
+          export PATH=$PATH:/usr/local/go/bin
 
           # make install-go # Use Cloudflare Go
           make cloudflared
