@@ -30,8 +30,8 @@ jobs:
           mv diagnostic/system_collector_linux.go diagnostic/system_collector_unix.go
 
           # cross-compile disabled CGO
-          export TARGET_OS=freebsd
-          export TARGET_ARCH=amd64
+          export GOOS=freebsd
+          export GOARCH=amd64
 
           # make install-go # Use Cloudflare Go
           make cloudflared
