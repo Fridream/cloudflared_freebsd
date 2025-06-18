@@ -29,9 +29,13 @@ jobs:
           patch -p1 < ../freebsd.patch
           mv diagnostic/system_collector_linux.go diagnostic/system_collector_unix.go
 
-          # make install-go # Use Cloudflare Go
           # cross-compile disabled CGO
-          GOOS=freebsd GOARCH=amd64 make cloudflared
+          export TARGET_OS=freebsd
+          export TARGET_ARCH=amd64
+          export GOTOOLCHAIN=local
+
+          # make install-go # Use Cloudflare Go
+          make cloudflared
           mv ./cloudflared ./cloudflared_NOCGO
 
       - name: Update If needs - CGO Version
