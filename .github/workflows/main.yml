@@ -29,15 +29,15 @@ jobs:
           patch -p1 < ../freebsd.patch
           mv diagnostic/system_collector_linux.go diagnostic/system_collector_unix.go
 
-          # cross-compile disabled CGO
-          export TARGET_OS=freebsd
-          export TARGET_ARCH=amd64
-          export GOTOOLCHAIN=local
-
           wget https://go.dev/dl/go1.24.4.linux-amd64.tar.gz
           sudo rm -rf /usr/local/go
           sudo tar -C /usr/local -xzf go1.24.4.linux-amd64.tar.gz
           export PATH=/usr/local/go/bin:$PATH
+
+          # cross-compile disabled CGO
+          export TARGET_OS=freebsd
+          export TARGET_ARCH=amd64
+          export GOTOOLCHAIN=local
 
           # make install-go # Use Cloudflare Go
           make cloudflared
