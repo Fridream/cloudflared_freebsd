@@ -51,11 +51,16 @@ jobs:
           version: '14.1'
           run: |
             sudo env IGNORE_OSVERSION=yes pkg update
-            sudo pkg install -y gmake go git wget
+            sudo pkg install -y gmake git wget
 
             # build environment has been synchronized
-            # no build parameters need to be set
             cd cloudflared/
+            wget https://go.dev/dl/go1.24.4.freebsd-amd64.tar.gz
+            sudo rm -rf /usr/local/go
+            sudo tar -C /usr/local -xzf go1.24.4.freebsd-amd64.tar.gz
+            export PATH=/usr/local/go/bin:$PATH
+
+            export GOTOOLCHAIN=local
             gmake cloudflared
 
       - name: Create Release
