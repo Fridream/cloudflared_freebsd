@@ -14,6 +14,8 @@ jobs:
 
       - name: Check update
         id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           chmod +x ./check_update.sh
           echo "TAG=$(./check_update.sh)" >> $GITHUB_OUTPUT
