@@ -1,20 +1,40 @@
+diff --git a/cmd/cloudflared/generic_service.go b/cmd/cloudflared/generic_service.go
+index bd49d2b..cce6d09 100644
+--- a/cmd/cloudflared/generic_service.go
++++ b/cmd/cloudflared/generic_service.go
+@@ -1,4 +1,4 @@
+-//go:build !windows && !darwin && !linux
++//go:build !windows && !darwin && !linux && !freebsd
+ 
+ package main
+ 
+diff --git a/cmd/cloudflared/linux_service.go b/cmd/cloudflared/linux_service.go
+index 067d5b4..0fa177a 100644
+--- a/cmd/cloudflared/linux_service.go
++++ b/cmd/cloudflared/linux_service.go
+@@ -1,4 +1,4 @@
+-//go:build linux
++//go:build linux || freebsd
+ 
+ package main
+ 
 diff --git a/diagnostic/network/collector_unix.go b/diagnostic/network/collector_unix.go
-index 2db2d262..2d23791a 100644
+index 2db2d26..94bfaa1 100644
 --- a/diagnostic/network/collector_unix.go
 +++ b/diagnostic/network/collector_unix.go
 @@ -1,4 +1,4 @@
 -//go:build darwin || linux
-+//go:build darwin || unix
++//go:build darwin || linux || freebsd
  
  package diagnostic
  
 diff --git a/diagnostic/system_collector_linux.go b/diagnostic/system_collector_linux.go
-index 49c0e6c2..4b03ddcc 100644
+index 49c0e6c..469596f 100644
 --- a/diagnostic/system_collector_linux.go
 +++ b/diagnostic/system_collector_linux.go
 @@ -1,4 +1,4 @@
 -//go:build linux
-+//go:build unix
++//go:build linux || freebsd
  
  package diagnostic
- 
+
