@@ -58,9 +58,10 @@ jobs:
 
             # build environment has been synchronized
             cd cloudflared/
-            wget https://go.dev/dl/go1.26.3.freebsd-amd64.tar.gz
+            latest_stable_version=$(curl -sSL 'https://go.dev/VERSION?m=text' | head -n 1)
+            wget https://go.dev/dl/${latest_stable_version}.freebsd-amd64.tar.gz
             sudo rm -rf /usr/local/go
-            sudo tar -C /usr/local -xzf go1.26.3.freebsd-amd64.tar.gz
+            sudo tar -C /usr/local -xzf ${latest_stable_version}.freebsd-amd64.tar.gz
             export PATH=/usr/local/go/bin:$PATH
 
             export GOTOOLCHAIN=local
